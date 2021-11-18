@@ -1,4 +1,5 @@
 from django.db import models
+from carro.models.carro import Carro
 
 
 class Cliente(models.Model):
@@ -8,3 +9,11 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.nome}"
+
+    @property
+    def has_car(self):
+        carros = Carro.objects.all().filter(cliente_id=self.id)
+        if carros:
+            return True
+        else:
+            return None
